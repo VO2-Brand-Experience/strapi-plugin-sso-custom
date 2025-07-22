@@ -3,7 +3,12 @@ import type { Core } from '@strapi/strapi'
 import { UserProfile, type Config } from '../config'
 import { PLUGIN_ID } from '../pluginId'
 
-async function exchangeCodeForAccessToken(code: string) {
+function getRedirectUri() {
+  const url = strapi.config.get('server.url')
+  return `${url}/api/sso-passport/connect/redirect`
+}
+
+async function exchangeCodeForToken(code: string) {
   const clientID = strapi.plugin(PLUGIN_ID).config('clientId') as Config['clientId']
   const clientSecret = strapi.plugin(PLUGIN_ID).config('clientSecret') as Config['clientSecret']
   const tokenURL = strapi.plugin(PLUGIN_ID).config('tokenUrl') as Config['tokenUrl']
@@ -23,33 +28,22 @@ async function exchangeCodeForAccessToken(code: string) {
     throw new Error('Failed to exchange code for access token')
   }
 
-  const data = (await response.json()) as { access_token: string }
+  const data = (await response.json()) as { id_token: string, access_token: string, refresh_token: string }
 
-  return data.access_token
+  return data
 }
 
 async function createUser(userProfile: UserProfile) {
-  // TODO: use higher level API
   let user = await strapi.db.query('plugin::users-permissions.user').findOne({
     where: {
       email: userProfile.email,
     },
   })
   if (!user) {
-    user = await strapi.db.query('plugin::users-permissions.user').create({
-      data: userProfile,
-    })
+    user = await strapi.service('plugin::users-permissions.user').add(userProfile)
   }
-  const jwt = strapi.plugins['users-permissions'].services.jwt.issue({ id: user.id })
+  const jwt = await strapi.plugin('users-permissions').service('jwt').issue({ id: user.id })
   return { user, jwt }
-}
-
-function getRedirectUri() {
-  const url = strapi.config.get('server.url')
-  // TODO: autoriser cette URI côté Chanel
-  // const redirectUri = `${url}/api/sso-passport/connect/redirect`
-  const redirectUri = `${url}/api/connect/chanel/callback`
-  return redirectUri
 }
 
 const controller = ({ strapi: _strapi }: { strapi: Core.Strapi }) => ({
@@ -66,15 +60,15 @@ const controller = ({ strapi: _strapi }: { strapi: Core.Strapi }) => ({
 
   async redirect(ctx: Context) {
     const code = ctx.query.code as string
+    if (!code) {
+      throw new Error('No code provided')
+    }
 
-    // exchange code for access token
-    const accessToken = await exchangeCodeForAccessToken(code)
+    const token = await exchangeCodeForToken(code)
 
-    // get user profile
     const getUserProfile = strapi.plugin(PLUGIN_ID).config('getUserProfile') as Config['getUserProfile']
-    const userProfile = await getUserProfile(accessToken)
+    const userProfile = await getUserProfile(token.id_token)
 
-    // create user and access token
     const { jwt } = await createUser(userProfile)
     const redirectUri = strapi.plugin(PLUGIN_ID).config('redirectUri') as Config['redirectUri']
 
