@@ -6,14 +6,14 @@ const userProfileSchema = z.object({
 })
 export type UserProfile = z.infer<typeof userProfileSchema>
 
-const getUserProfileSchema = z.function().args(z.string()).returns(z.promise(userProfileSchema))
+const getUserProfileSchema = z.function(z.tuple([z.string()]), z.promise(userProfileSchema).or(userProfileSchema))
 
 const configSchema = z.object({
   clientId: z.string(),
   clientSecret: z.string(),
   authorizationUrl: z.string().url(),
   tokenUrl: z.string().url(),
-  scopes: z.array(z.string()).nonempty(),
+  scopes: z.array(z.string()).min(1),
   redirectUri: z.string().url(),
   getUserProfile: getUserProfileSchema,
 })

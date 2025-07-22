@@ -1,8 +1,8 @@
 import apiRoutes from './api'
 
 const routes = {
-  api: {
-    type: 'api',
+  'content-api': {
+    type: 'content-api',
     routes: apiRoutes,
   },
 }
