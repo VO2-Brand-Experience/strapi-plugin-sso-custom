@@ -1,12 +1,12 @@
 export default [
   {
     method: 'GET',
-    path: '/sso-passport/connect',
+    path: '/connect',
     handler: 'api.connect',
   },
   {
     method: 'GET',
-    path: '/sso-passport/redirect',
+    path: '/connect/redirect',
     handler: 'api.redirect',
   },
 ]
