@@ -5,7 +5,7 @@ import { PLUGIN_ID } from '../pluginId'
 
 function getRedirectUri() {
   const url = strapi.config.get('server.url')
-  return `${url}/api/sso-passport/connect/redirect`
+  return `${url}/api/sso-custom/connect/redirect`
 }
 
 async function exchangeCodeForToken(code: string) {

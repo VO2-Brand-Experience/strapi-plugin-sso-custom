@@ -1,16 +1,16 @@
-# Strapi v5 - Plugin SSO Passport
+# Strapi v5 - Plugin SSO Custom
 
 ## Usage
 
 To configure the plugin, add your configuration to the plugin settings:
 
 ```typescript
-import { type Config as SSOConfig } from 'strapi-plugin-sso-passport/dist/server/src/config'
+import { type Config as SSOConfig } from 'strapi-plugin-sso-custom/dist/server/src/config'
 import jwt from 'jsonwebtoken'
 
 export default ({ env }) => ({
   // ...
-  'sso-passport': {
+  'sso-custom': {
     enabled: true,
     config: {
       clientId: process.env.OAUTH_CLIENT_ID,

@@ -2,18 +2,18 @@
   "version": "0.0.1",
   "strapi": {
     "kind": "plugin",
-    "name": "sso-passport",
-    "displayName": "SSO Passport",
+    "name": "sso-custom",
+    "displayName": "SSO Custom",
     "description": "Allows to add a full custom SSO provider to Strapi."
   },
-  "name": "strapi-plugin-sso-passport",
+  "name": "strapi-plugin-sso-custom",
   "description": "This plugin allows to add a full custom SSO provider to Strapi.",
   "keywords": [
     "strapi",
     "plugin",
     "sso",
-    "provider",
-    "passport"
+    "custom",
+    "provider"
   ],
   "author": {
     "name": "VO2-Brand-Experience",
@@ -21,7 +21,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/VO2-Brand-Experience/strapi-plugin-sso-passport"
+    "url": "https://github.com/VO2-Brand-Experience/strapi-plugin-sso-custom"
   },
   "type": "commonjs",
   "exports": {
