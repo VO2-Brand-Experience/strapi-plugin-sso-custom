@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       zod:
-        specifier: ^3.25.56
-        version: 3.25.56
+        specifier: ^3.25.76
+        version: 3.25.76
     devDependencies:
       '@eslint/js':
         specifier: ^9.31.0
@@ -6233,8 +6233,8 @@ packages:
   zod@3.24.2:
     resolution: {integrity: sha512-lY7CDW43ECgW9u1TcT3IoXHflywfVqDYze4waEz812jR/bZ8FHDsl7pFQoSZTz5N+2NqRXs8GBwnAwo3ZNxqhQ==}
 
-  zod@3.25.56:
-    resolution: {integrity: sha512-rd6eEF3BTNvQnR2e2wwolfTmUTnp70aUTqr0oaGbHifzC3BKJsoV+Gat8vxUMR1hwOKBs6El+qWehrHbCpW6SQ==}
+  zod@3.25.76:
+    resolution: {integrity: sha512-gzUt/qt81nXsFGKIFcC3YnfEAx5NkunCfnDlvuBSSFS02bcXu4Lmea0AFIUwbLWxWPx3d9p8S5QoaujKcNQxcQ==}
 
 snapshots:
 
@@ -11145,7 +11145,7 @@ snapshots:
       '@types/koa': 2.15.0
       co-body: 6.2.0
       formidable: 2.1.5
-      zod: 3.25.56
+      zod: 3.25.76
 
   koa-compose@4.1.0: {}
 
@@ -13312,4 +13312,4 @@ snapshots:
 
   zod@3.24.2: {}
 
-  zod@3.25.56: {}
+  zod@3.25.76: {}
