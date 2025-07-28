@@ -14,7 +14,8 @@ const configSchema = z.object({
   authorizationUrl: z.string().url(),
   tokenUrl: z.string().url(),
   scopes: z.array(z.string()).min(1),
-  redirectUri: z.string().url(),
+  ssoRedirectUri: z.string().url(),
+  appRedirectUri: z.string().url(),
   getUserProfile: getUserProfileSchema,
 })
 export type Config = z.infer<typeof configSchema>

@@ -3,16 +3,11 @@ import type { Core } from '@strapi/strapi'
 import { UserProfile, type Config } from '../config'
 import { PLUGIN_ID } from '../pluginId'
 
-function getRedirectUri() {
-  const url = strapi.config.get('server.url')
-  return `${url}/api/sso-custom/connect/redirect`
-}
-
 async function exchangeCodeForToken(code: string) {
   const clientID = strapi.plugin(PLUGIN_ID).config('clientId') as Config['clientId']
   const clientSecret = strapi.plugin(PLUGIN_ID).config('clientSecret') as Config['clientSecret']
   const tokenURL = strapi.plugin(PLUGIN_ID).config('tokenUrl') as Config['tokenUrl']
-  const redirectUri = getRedirectUri()
+  const ssoRedirectUri = strapi.plugin(PLUGIN_ID).config('ssoRedirectUri') as Config['ssoRedirectUri']
 
   const response = await fetch(tokenURL, {
     method: 'POST',
@@ -20,7 +15,7 @@ async function exchangeCodeForToken(code: string) {
       code,
       client_id: clientID,
       client_secret: clientSecret,
-      redirect_uri: redirectUri,
+      redirect_uri: ssoRedirectUri,
       grant_type: 'authorization_code',
     }),
   })
@@ -51,9 +46,9 @@ const controller = ({ strapi: _strapi }: { strapi: Core.Strapi }) => ({
     const clientID = strapi.plugin(PLUGIN_ID).config('clientId') as Config['clientId']
     const authorizationURL = strapi.plugin(PLUGIN_ID).config('authorizationUrl') as Config['authorizationUrl']
     const scopes = strapi.plugin(PLUGIN_ID).config('scopes') as Config['scopes']
-    const redirectUri = getRedirectUri()
+    const ssoRedirectUri = strapi.plugin(PLUGIN_ID).config('ssoRedirectUri') as Config['ssoRedirectUri']
 
-    const url = `${authorizationURL}?response_type=code&client_id=${clientID}&scope=${encodeURIComponent(scopes.join(' '))}&redirect_uri=${encodeURIComponent(redirectUri)}`
+    const url = `${authorizationURL}?response_type=code&client_id=${clientID}&scope=${encodeURIComponent(scopes.join(' '))}&redirect_uri=${encodeURIComponent(ssoRedirectUri)}`
 
     ctx.redirect(url)
   },
@@ -70,9 +65,9 @@ const controller = ({ strapi: _strapi }: { strapi: Core.Strapi }) => ({
     const userProfile = await getUserProfile(token.id_token)
 
     const { jwt } = await createUser(userProfile)
-    const redirectUri = strapi.plugin(PLUGIN_ID).config('redirectUri') as Config['redirectUri']
+    const appRedirectUri = strapi.plugin(PLUGIN_ID).config('appRedirectUri') as Config['appRedirectUri']
 
-    ctx.redirect(`${redirectUri}?access_token=${jwt}`)
+    ctx.redirect(`${appRedirectUri}?access_token=${jwt}`)
   },
 })
 

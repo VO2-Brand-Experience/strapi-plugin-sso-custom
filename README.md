@@ -18,7 +18,8 @@ export default ({ env }) => ({
       scopes: process.env.OAUTH_SCOPES.split(','),
       authorizationUrl: 'https://some-domain.com/oauth2/authorize',
       tokenUrl: 'https://some-domain.com/oauth2/token',
-      redirectUri: 'https://your-application.com/auth/callback',
+      ssoRedirectUri: 'https://strapi.your-application.com/api/sso-custom/connect/redirect',
+      appRedirectUri: 'https://your-application.com/auth/callback',
       getUserProfile: (accessToken: string) => {
         const decodedToken = jwt.decode(accessToken, { json: true })
         return {
