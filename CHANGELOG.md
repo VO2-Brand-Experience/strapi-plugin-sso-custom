@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/VO2-Brand-Experience/strapi-plugin-sso-custom/compare/v1.0.0...v1.0.1) (2025-07-30)
+
+
+### Bug Fixes
+
+* **sso:** confirm user & add default role on user creation ([c4615a8](https://github.com/VO2-Brand-Experience/strapi-plugin-sso-custom/commit/c4615a83f60bc26bc8321542ee82459e0d73db3c))
+
 ## 1.0.0 (2025-07-28)
 
 
