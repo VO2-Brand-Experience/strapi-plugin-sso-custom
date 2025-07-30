@@ -3,6 +3,17 @@ import type { Core } from '@strapi/strapi'
 import { UserProfile, type Config } from '../config'
 import { PLUGIN_ID } from '../pluginId'
 
+interface AdvancedSettings {
+  default_role: string
+}
+
+interface StrapiRole {
+  id: number
+  name: string
+  type: string
+  description: string
+}
+
 async function exchangeCodeForToken(code: string) {
   const clientID = strapi.plugin(PLUGIN_ID).config('clientId') as Config['clientId']
   const clientSecret = strapi.plugin(PLUGIN_ID).config('clientSecret') as Config['clientSecret']
@@ -28,6 +39,12 @@ async function exchangeCodeForToken(code: string) {
   return data
 }
 
+async function getDefaultRole() {
+  const advancedSettings = (await strapi.store.get({ type: 'plugin', name: 'users-permissions', key: 'advanced' })) as AdvancedSettings | null
+  const roles = (await strapi.plugin('users-permissions').service('role').find()) as StrapiRole[]
+  return roles.find((role) => role.type === advancedSettings?.default_role)
+}
+
 async function createUser(userProfile: UserProfile) {
   let user = await strapi.db.query('plugin::users-permissions.user').findOne({
     where: {
@@ -35,7 +52,12 @@ async function createUser(userProfile: UserProfile) {
     },
   })
   if (!user) {
-    user = await strapi.service('plugin::users-permissions.user').add(userProfile)
+    const defaultRole = await getDefaultRole()
+    user = await strapi.service('plugin::users-permissions.user').add({
+      ...userProfile,
+      confirmed: true,
+      role: defaultRole?.id,
+    })
   }
   const jwt = await strapi.plugin('users-permissions').service('jwt').issue({ id: user.id })
   return { user, jwt }
