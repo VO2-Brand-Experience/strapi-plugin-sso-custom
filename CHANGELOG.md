@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.1.0](https://github.com/VO2-Brand-Experience/strapi-plugin-sso-custom/compare/v1.0.1...v1.1.0) (2025-10-16)
+
+
+### Features
+
+* register overrides for the documentation plugin with new endpoints ([#31](https://github.com/VO2-Brand-Experience/strapi-plugin-sso-custom/issues/31)) ([c234966](https://github.com/VO2-Brand-Experience/strapi-plugin-sso-custom/commit/c23496675a24d296b07909c1b9c58dc82578fc32))
+
+
+### Bug Fixes
+
+* **deps:** update dependencies and package versions ([#27](https://github.com/VO2-Brand-Experience/strapi-plugin-sso-custom/issues/27)) ([8b6dd9d](https://github.com/VO2-Brand-Experience/strapi-plugin-sso-custom/commit/8b6dd9d03df51f1ba822ddfa3643288c369a486f))
+
 ## [1.0.1](https://github.com/VO2-Brand-Experience/strapi-plugin-sso-custom/compare/v1.0.0...v1.0.1) (2025-07-30)
 
 
