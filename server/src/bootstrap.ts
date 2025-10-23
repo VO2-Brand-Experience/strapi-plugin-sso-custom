@@ -13,11 +13,21 @@ const bootstrap = ({ strapi }: { strapi: Core.Strapi }) => {
       [`/${PLUGIN_ID}/connect`]: {
         get: {
           tags: [PLUGIN_ID],
+          responses: {
+            '301': {
+              description: 'Redirect response',
+            },
+          },
         },
       },
       [`/${PLUGIN_ID}/connect/redirect`]: {
         get: {
           tags: [PLUGIN_ID],
+          responses: {
+            '301': {
+              description: 'Redirect response',
+            },
+          },
         },
       },
     }
