@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/VO2-Brand-Experience/strapi-plugin-sso-custom/compare/v1.1.0...v1.1.1) (2025-10-23)
+
+
+### Bug Fixes
+
+* add 301 redirect responses for connect endpoints in bootstrap ([#34](https://github.com/VO2-Brand-Experience/strapi-plugin-sso-custom/issues/34)) ([5845e75](https://github.com/VO2-Brand-Experience/strapi-plugin-sso-custom/commit/5845e7570b98387a2d2238e982771e2d45e7d813))
+
 ## [1.1.0](https://github.com/VO2-Brand-Experience/strapi-plugin-sso-custom/compare/v1.0.1...v1.1.0) (2025-10-16)
 
 
