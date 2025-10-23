@@ -25,8 +25,8 @@ importers:
         specifier: ^5.28.0
         version: 5.28.0
       '@stylistic/eslint-plugin':
-        specifier: ^5.4.0
-        version: 5.4.0(eslint@9.38.0)
+        specifier: ^5.5.0
+        version: 5.5.0(eslint@9.38.0)
       '@types/koa':
         specifier: ^2.15.0
         version: 2.15.0
@@ -1901,8 +1901,8 @@ packages:
     resolution: {integrity: sha512-L+fkXoyfVZ4t/CjVcD1D4rXT45lgEb1ExzHbbhZFQYCKYE1r19+m6xfgMhTL81b9RVqkNeATefGf69uc0Lq1LA==}
     engines: {node: '>=18.0.0 <=22.x.x', npm: '>=6.0.0'}
 
-  '@stylistic/eslint-plugin@5.4.0':
-    resolution: {integrity: sha512-UG8hdElzuBDzIbjG1QDwnYH0MQ73YLXDFHgZzB4Zh/YJfnw8XNsloVtytqzx0I2Qky9THSdpTmi8Vjn/pf/Lew==}
+  '@stylistic/eslint-plugin@5.5.0':
+    resolution: {integrity: sha512-IeZF+8H0ns6prg4VrkhgL+yrvDXWDH2cKchrbh80ejG9dQgZWp10epHMbgRuQvgchLII/lfh6Xn3lu6+6L86Hw==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
     peerDependencies:
       eslint: '>=9.0.0'
@@ -9055,7 +9055,7 @@ snapshots:
       yup: 0.32.9
       zod: 3.25.67
 
-  '@stylistic/eslint-plugin@5.4.0(eslint@9.38.0)':
+  '@stylistic/eslint-plugin@5.5.0(eslint@9.38.0)':
     dependencies:
       '@eslint-community/eslint-utils': 4.9.0(eslint@9.38.0)
       '@typescript-eslint/types': 8.46.1
