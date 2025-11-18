@@ -20,35 +20,39 @@ async function exchangeCodeForToken(code: string) {
   const tokenURL = strapi.plugin(PLUGIN_ID).config('tokenUrl') as Config['tokenUrl']
   const ssoRedirectUri = strapi.plugin(PLUGIN_ID).config('ssoRedirectUri') as Config['ssoRedirectUri']
 
-  const response = await fetch(tokenURL, {
-    method: 'POST',
-    body: new URLSearchParams({
-      code,
-      client_id: clientID,
-      client_secret: clientSecret,
-      redirect_uri: ssoRedirectUri,
-      grant_type: 'authorization_code',
-    }),
-  })
-  if (!response.ok) {
-    const errorText = await response.text()
-    const headers: Record<string, string> = {}
-    response.headers.forEach((value, key) => {
-      headers[key] = value
+  try {
+    const response = await fetch(tokenURL, {
+      method: 'POST',
+      body: new URLSearchParams({
+        code,
+        client_id: clientID,
+        client_secret: clientSecret,
+        redirect_uri: ssoRedirectUri,
+        grant_type: 'authorization_code',
+      }),
     })
-    const errorDetails = {
-      status: response.status,
-      statusText: response.statusText,
-      headers,
-      body: errorText,
-      url: response.url,
+    if (!response.ok) {
+      const errorText = await response.text()
+      const headers: Record<string, string> = {}
+      response.headers.forEach((value, key) => {
+        headers[key] = value
+      })
+      const errorDetails = {
+        status: response.status,
+        statusText: response.statusText,
+        headers,
+        body: errorText,
+        url: response.url,
+      }
+      throw new Error(`Failed to exchange code for access token, request failed: ${JSON.stringify(errorDetails)}`)
     }
-    throw new Error(`Failed to exchange code for access token: ${JSON.stringify(errorDetails)}`)
+  
+    const data = (await response.json()) as { id_token: string, access_token: string, refresh_token: string }
+  
+    return data
+  } catch (error) {
+    throw new Error(`Failed to exchange code for access token, fetch failed: ${JSON.stringify(error)}`)
   }
-
-  const data = (await response.json()) as { id_token: string, access_token: string, refresh_token: string }
-
-  return data
 }
 
 async function getDefaultRole() {
