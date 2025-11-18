@@ -31,7 +31,19 @@ async function exchangeCodeForToken(code: string) {
     }),
   })
   if (!response.ok) {
-    throw new Error('Failed to exchange code for access token')
+    const errorText = await response.text()
+    const headers: Record<string, string> = {}
+    response.headers.forEach((value, key) => {
+      headers[key] = value
+    })
+    const errorDetails = {
+      status: response.status,
+      statusText: response.statusText,
+      headers,
+      body: errorText,
+      url: response.url,
+    }
+    throw new Error(`Failed to exchange code for access token: ${JSON.stringify(errorDetails)}`)
   }
 
   const data = (await response.json()) as { id_token: string, access_token: string, refresh_token: string }
