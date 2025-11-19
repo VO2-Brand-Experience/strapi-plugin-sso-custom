@@ -51,7 +51,16 @@ async function exchangeCodeForToken(code: string) {
   
     return data
   } catch (error) {
-    throw new Error(`Failed to exchange code for access token, fetch failed: ${JSON.stringify(error)}`)
+    const errorDetails: Record<string, unknown> = {
+      error,
+    }
+    if (error instanceof Error) {
+      errorDetails.message = error.message
+      errorDetails.stack = error.stack
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      errorDetails.cause = (error as any).cause
+    }
+    throw new Error(`Failed to exchange code for access token, request failed: ${JSON.stringify(errorDetails)}`)
   }
 }
 
