@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.4](https://github.com/VO2-Brand-Experience/strapi-plugin-sso-custom/compare/v1.1.3...v1.1.4) (2025-11-19)
+
+
+### Bug Fixes
+
+* **api:** improve error handling in exchangeCodeForToken function ([a41a058](https://github.com/VO2-Brand-Experience/strapi-plugin-sso-custom/commit/a41a058b98f760b5b7299800d5b2dc47ad132e8e))
+
 ## [1.1.3](https://github.com/VO2-Brand-Experience/strapi-plugin-sso-custom/compare/v1.1.2...v1.1.3) (2025-11-18)
 
 
