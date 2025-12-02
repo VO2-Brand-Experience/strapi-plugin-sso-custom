@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/VO2-Brand-Experience/strapi-plugin-sso-custom/compare/v1.1.4...v1.2.0) (2025-12-02)
+
+
+### Features
+
+* getProfile receives the whole token response instead of just the id_token ([8d2596a](https://github.com/VO2-Brand-Experience/strapi-plugin-sso-custom/commit/8d2596a34bc4e24c2684fcc779f4f86e175f7814))
+
 ## [1.1.4](https://github.com/VO2-Brand-Experience/strapi-plugin-sso-custom/compare/v1.1.3...v1.1.4) (2025-11-19)
 
 
