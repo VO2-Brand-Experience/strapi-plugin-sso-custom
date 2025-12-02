@@ -1,6 +1,6 @@
 import type { Context } from 'koa'
 import type { Core } from '@strapi/strapi'
-import { UserProfile, type Config } from '../config'
+import { TokenResponse, UserProfile, type Config } from '../config'
 import { PLUGIN_ID } from '../pluginId'
 
 interface AdvancedSettings {
@@ -47,7 +47,7 @@ async function exchangeCodeForToken(code: string) {
       throw new Error(`Failed to exchange code for access token, request failed: ${JSON.stringify(errorDetails)}`)
     }
   
-    const data = (await response.json()) as { id_token: string, access_token: string, refresh_token: string }
+    const data = (await response.json()) as TokenResponse
   
     return data
   } catch (error) {
@@ -106,10 +106,10 @@ const controller = ({ strapi: _strapi }: { strapi: Core.Strapi }) => ({
       throw new Error('No code provided')
     }
 
-    const token = await exchangeCodeForToken(code)
+    const tokenResponse = await exchangeCodeForToken(code)
 
     const getUserProfile = strapi.plugin(PLUGIN_ID).config('getUserProfile') as Config['getUserProfile']
-    const userProfile = await getUserProfile(token.id_token)
+    const userProfile = await getUserProfile(tokenResponse)
 
     const { jwt } = await createUser(userProfile)
     const appRedirectUri = strapi.plugin(PLUGIN_ID).config('appRedirectUri') as Config['appRedirectUri']

@@ -6,7 +6,14 @@ const userProfileSchema = z.object({
 })
 export type UserProfile = z.infer<typeof userProfileSchema>
 
-const getUserProfileSchema = z.function(z.tuple([z.string()]), z.promise(userProfileSchema).or(userProfileSchema))
+const tokenResponseSchema = z.object({
+  id_token: z.string(),
+  access_token: z.string(),
+  refresh_token: z.string(),
+})
+export type TokenResponse = z.infer<typeof tokenResponseSchema>
+
+const getUserProfileSchema = z.function(z.tuple([tokenResponseSchema]), z.promise(userProfileSchema).or(userProfileSchema))
 
 const configSchema = z.object({
   clientId: z.string(),
