@@ -85,11 +85,11 @@
     "styled-components": "^6.1.19"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=24.11.1"
   },
   "packageManager": "pnpm@10.24.0",
   "volta": {
-    "node": "22.21.1",
+    "node": "24.11.1",
     "pnpm": "10.24.0"
   }
 }
